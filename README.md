@@ -4,8 +4,7 @@ By: Cabangon Ron Elmo Kristofer E.; Enriquez, Andrei Miguel C.; Go, Martin Liam 
 
 ## Introduction
 
-	Welcome to our cafe POS project! The initiative aims to 
- streamline the ordering and payment process at our coffee shop, AnimoBrew, enhancing the 
+Welcome to our cafe POS project! The initiative aims to streamline the ordering and payment process at our coffee shop, AnimoBrew, enhancing the 
  customer experience while increasing efficiency in operations. With a focus on 
  modularity and scalability, the project is divided into distinct modules, each 
  designed to address specific aspects of the coffee ordering and transaction process. 
@@ -15,10 +14,7 @@ By: Cabangon Ron Elmo Kristofer E.; Enriquez, Andrei Miguel C.; Go, Martin Liam 
  in the evolving technology use of establishments.
 
 	
-	Animo Brew has decided to align itself with the Starbucks vision - and thus
- therefore Animo Brew has adopted a similar menu and beverage offerings as Starbucks.
- In fact all of our menu items are based on the Starbucks Coffee Menu. Wherein the 
- following criteria are taken into consideration:
+Animo Brew has decided to align itself with the Starbucks vision - and thus therefore Animo Brew has adopted a similar menu and beverage offerings as Starbucks.In fact all of our menu items are based on the Starbucks Coffee Menu. Wherein the following criteria are taken into consideration:
 
 Objectives:
 1. To enhance customer satisfaction by streamlining the ordering and payment process. 
