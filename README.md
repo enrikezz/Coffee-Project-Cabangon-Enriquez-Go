@@ -3,19 +3,13 @@
 By: Cabangon Ron Elmo Kristofer E.; Enriquez, Andrei Miguel C.; Go, Martin Liam K.
 
 ## Introduction
-You can edit this whole README file to introduce your project.
 
-Make sure to write down which coffee project you've picked here.
+	Welcome to our cafe POS project! The initiative aims to streamline the ordering and payment process at our coffee shop, AnimoBrew, enhancing the customer experience while increasing efficiency in operations. With a focus on modularity and scalability, the project is divided into distinct modules, each designed to address specific aspects of the coffee ordering and transaction process. From placing orders to processing payments and generating receipts, by implementing this system, we will enable smooth and faster transactions for our customers’ satisfaction. The project is a crucial step towards innovation and staying competitive in the evolving technology use of establishments.
 
-To edit, you can:
-1. on the upper right of README.md here, click the pencil icon.
-2. Make sure to check "commit directly to the master branch"
-3. Then Commit Changes green button
+	
+	Animo Brew has decided to align itself with the Starbucks vision - and thus therefore Animo Brew has adopted a similar menu and beverage offerings as Starbucks. In fact all of our menu items are based on the Starbucks Coffee Menu. Wherein the following criteria are taken into consideration:
 
-Upload all your source codes here (header files, c files, and resources if any).
-
-Make sure that when I download this repository, your code would work perfectly fine.
-
-If you have multiple c files, make sure that you have a `main.c` that contains the main function.
-
-Please do not upload exe files.
+Objectives:
+1. To enhance customer satisfaction by streamlining the ordering and payment process. 
+2. Improve operational efficiency by implementing a modular and scalable POS system
+3. Generate a detailed list/receipt of the customer’s purchases.
