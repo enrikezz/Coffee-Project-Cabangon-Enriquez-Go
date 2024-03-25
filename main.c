@@ -208,7 +208,7 @@ int main(void) {
     
     while (strcmp(done, "done") != 0); {
         printf("\nProceeding to payment...\n");
-        //print receip
+        //print receipt
         for (i = 0; i < order_iteration+1; i++)
         {
             /* code */
