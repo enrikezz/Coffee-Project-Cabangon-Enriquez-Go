@@ -18,6 +18,10 @@ char *frappucino_addons[7] = {"Flavored Syrup", "Espresso Shot", "White Mocha", 
 char *teavanas[13] = {"Iced Shaken Black Tea with Ruby Grapefruit and Honey", "Iced Shaken Hibiscus Tea with Pomegranate Pearls", "Matcha & Espresso Fusion", "Green Iced Shaken", "Black Iced Shaken", "Caffeine-free Herbal Iced Shaken", "Black Tea Latte", "Chai Tea Latte", "Green Tea Latte", "Green Full-Leaf", "White Full-Leaf", "Black Full-Leaf", "Caffeine-free Herbal Tea Full-Leaf"};
 int teavana_prices[13][3] = {{140, 155, 170}, {140, 155, 170}, {155, 170, 185}, {125, 140, 155}, {125, 140, 155}, {125, 140, 155}, {140, 155, 170}, {155, 170, 185}, {155, 170, 185}, {120, 135, 150}, {125, 140, 155}, {125, 140, 155}, {125, 140, 155}};
 int all_orders[50][4];
+
+float final_cash = 0;
+float final_change = 0;
+
 //all orders acts as a index/placeholder for all order information
     //all_orders[n][m], n corresponds to a each order iteration (essentially each order made by the user, first order, second order etc.)
     //all_orders[n][m], m corresponds to each order information
@@ -125,9 +129,9 @@ int select_size() {
 }
 //asking wether hot or iced for espresso
 char ask_hot_or_iced() {
-    char hot_or_iced;
-    printf("Would you like it hot or iced? (h for hot, i for iced): ");
-    scanf(" %c", &hot_or_iced);
+    int hot_or_iced;
+    printf("Would you like it hot or iced? (1 for hot, 0 for iced): ");
+    scanf(" %i", &hot_or_iced);
     return hot_or_iced;
 }
 //asking for add-on for frappucinno
@@ -163,6 +167,9 @@ int payment(float totalamount) {
     vatable = totalamount - vat;
     printf("\nVAT: Php %.2f", vat);
     printf("\nVATable: Php %.2f", vatable);
+
+    final_cash = final_cash + customer_payment;
+    final_change = final_change + change;
     
     return 0;
 }
@@ -179,17 +186,14 @@ void write_to_csv(int order_iteration,float total) {
     int type, size, index;
 
     for (int i = 0; i < order_iteration; i++) {
-        fprintf(file, "%i,", all_orders[i][0]);
-        fprintf(file, "%i,", all_orders[i][1]);
-        fprintf(file, "%d,", all_orders[i][2]);
-        fprintf(file, "%d,", all_orders[i][3]);
 
         type = all_orders[i][0];
         size = all_orders[i][1];
         index = all_orders[i][3] - 1;
 
         if (type == 1) {
-            if (index >= 0 && index < sizeof(espressos) / sizeof(char *)) {
+            printf("yes this works");
+            if (index >= 0 && index < 8 / sizeof(char *)) {
                 fprintf(file, "%s,", espressos[index]);
                 if (size >= 1 && size <= 3) {
                     fprintf(file, "%d,", espresso_prices[index][size - 1]);
@@ -216,10 +220,13 @@ void write_to_csv(int order_iteration,float total) {
             }
         }
 
+        fprintf(file, "%d,", all_orders[i][2]);
         fprintf(file, "\n");
     }
 
     fprintf(file, "Total,%f\n", total);
+    fprintf(file, "Cash,%f\n", final_cash);
+    fprintf(file, "Change,%f\n", final_change);
     fclose(file);
 }
 
@@ -227,7 +234,7 @@ int main(void) {
     char done[10];
     int menu_choice;
     int drink_size;
-    char hot_or_iced;
+    int hot_or_iced;
     int add_on_choice;
     int order_quantity;
     int user_order;
@@ -255,6 +262,7 @@ int main(void) {
             menu_espresso();
             scanf("%i",&user_order);    
             hot_or_iced = ask_hot_or_iced();
+            all_orders[order_iteration][4] = hot_or_iced;
             all_orders[order_iteration][3] = user_order;
         }
         else if (menu_choice == 2) { // Frappuccino
@@ -296,7 +304,7 @@ int main(void) {
             //printf("\n%i",i);
             if (all_orders[i][0] == 1)
             {
-                total = total + ((espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1])*all_orders[i][2]);
+                total = total + ((espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1])*all_orders[i][2]);                
                 printf("\n%-35s %5i %11i %11i",espressos[all_orders[i][3]-1],espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1],all_orders[i][2],(espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1])*all_orders[i][2]);  
             }
             else if (all_orders[i][0] == 2)
@@ -318,8 +326,8 @@ int main(void) {
         }
     }
     printf("\n%f\n\n",total);
-        write_to_csv(order_iteration,total);
         payment(total);
+        write_to_csv(order_iteration,total);
         printf("\nThank you for visiting Animo Brew! See you again soon!");
 
         return 0;
