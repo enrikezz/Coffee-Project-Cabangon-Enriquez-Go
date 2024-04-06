@@ -19,6 +19,8 @@ char *teavanas[13] = {"Iced Shaken Black Tea with Ruby Grapefruit and Honey", "I
 int teavana_prices[13][3] = {{140, 155, 170}, {140, 155, 170}, {155, 170, 185}, {125, 140, 155}, {125, 140, 155}, {125, 140, 155}, {140, 155, 170}, {155, 170, 185}, {155, 170, 185}, {120, 135, 150}, {125, 140, 155}, {125, 140, 155}, {125, 140, 155}};
 int all_orders[50][4];
 
+int hotcold_orders[50];
+
 float final_cash = 0;
 float final_change = 0;
 
@@ -130,7 +132,7 @@ int select_size() {
 //asking wether hot or iced for espresso
 char ask_hot_or_iced() {
     int hot_or_iced;
-    printf("Would you like it hot or iced? (1 for hot, 0 for iced): ");
+    printf("Would you like it hot or iced? (1 for hot, 2 for iced): ");
     scanf(" %i", &hot_or_iced);
     return hot_or_iced;
 }
@@ -192,9 +194,15 @@ void write_to_csv(int order_iteration,float total) {
         index = all_orders[i][3] - 1;
 
         if (type == 1) {
-            printf("yes this works");
             if (index >= 0 && index < 8 / sizeof(char *)) {
-                fprintf(file, "%s,", espressos[index]);
+                if (hotcold_orders[i]==1)
+                {
+                    fprintf(file, " Hot %s,", espressos[index]);
+                }
+                else if (hotcold_orders[i]==2)
+                {
+                    fprintf(file, " Cold %s,", espressos[index]);
+                }
                 if (size >= 1 && size <= 3) {
                     fprintf(file, "%d,", espresso_prices[index][size - 1]);
                 }
@@ -261,9 +269,9 @@ int main(void) {
         if (menu_choice == 1) { // Espresso
             menu_espresso();
             scanf("%i",&user_order);    
-            hot_or_iced = ask_hot_or_iced();
-            all_orders[order_iteration][4] = hot_or_iced;
             all_orders[order_iteration][3] = user_order;
+            hot_or_iced = ask_hot_or_iced();
+            hotcold_orders[order_iteration] = hot_or_iced;
         }
         else if (menu_choice == 2) { // Frappuccino
             menu_frapuccino();
@@ -304,8 +312,23 @@ int main(void) {
             //printf("\n%i",i);
             if (all_orders[i][0] == 1)
             {
+                if (hotcold_orders[i]==0)
+                {
+                    //
+                }
+                else if (hotcold_orders[i]==1)
+                {
+                    printf("\nHot ");
+                }
+                else if (hotcold_orders[i]==2)
+                {
+                    printf("\nCold");
+                }
+                
+
+                
                 total = total + ((espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1])*all_orders[i][2]);                
-                printf("\n%-35s %5i %11i %11i",espressos[all_orders[i][3]-1],espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1],all_orders[i][2],(espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1])*all_orders[i][2]);  
+                printf("%-35s %5i %11i %11i",espressos[all_orders[i][3]-1],espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1],all_orders[i][2],(espresso_prices[all_orders[i][3]-1][all_orders[i][1]-1])*all_orders[i][2]);  
             }
             else if (all_orders[i][0] == 2)
             {
