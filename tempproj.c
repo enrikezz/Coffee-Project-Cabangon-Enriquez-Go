@@ -167,7 +167,7 @@ int payment(float totalamount) {
     return 0;
 }
 
-void write_to_csv(int order_iteration, int *all_orders, float total) {
+void write_to_csv(int order_iteration,float total) {
     FILE *file;
     file = fopen("orders.csv", "a");
 
@@ -179,8 +179,8 @@ void write_to_csv(int order_iteration, int *all_orders, float total) {
     int type, size, index;
 
     for (int i = 0; i < order_iteration; i++) {
-        fprintf(file, "%d,", all_orders[i][0]);
-        fprintf(file, "%d,", all_orders[i][1]);
+        fprintf(file, "%i,", all_orders[i][0]);
+        fprintf(file, "%i,", all_orders[i][1]);
         fprintf(file, "%d,", all_orders[i][2]);
         fprintf(file, "%d,", all_orders[i][3]);
 
@@ -238,11 +238,19 @@ int main(void) {
 
     do {
         display_menu();
-        printf("What type of drink would you like? ");
+        printf("What type of drink would you like?");
         scanf("%d", &menu_choice);
         all_orders[order_iteration][0] = menu_choice;
         //sets column 0 equal to menu choice
 
+        drink_size = select_size();
+        all_orders[order_iteration][1] = drink_size;
+        //sets row n, column 1 to drink size
+
+        order_quantity = ask_for_quantity();
+        all_orders[order_iteration][2] = order_quantity;
+        //sets row n, column 2 to order quantity
+        
         if (menu_choice == 1) { // Espresso
             menu_espresso();
             scanf("%i",&user_order);    
@@ -264,7 +272,6 @@ int main(void) {
                 order_quantity = ask_for_quantity();
                 all_orders[order_iteration][2] = order_quantity;
             }
-            
               
         }
         else if(menu_choice == 3){
@@ -272,14 +279,6 @@ int main(void) {
             scanf("%i",&user_order);
             all_orders[order_iteration][3] = user_order;
         }
-
-        drink_size = select_size();
-        all_orders[order_iteration][1] = drink_size;
-        //sets row n, column 1 to drink size
-
-        order_quantity = ask_for_quantity();
-        all_orders[order_iteration][2] = order_quantity;
-        //sets row n, column 2 to order quantity
         
         
 
@@ -318,7 +317,8 @@ int main(void) {
             
         }
     }
-        write_to_csv(4, orders, total);
+    printf("\n%f\n\n",total);
+        write_to_csv(order_iteration,total);
         payment(total);
         printf("\nThank you for visiting Animo Brew! See you again soon!");
 
