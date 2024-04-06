@@ -263,12 +263,30 @@ int main(void) {
             all_orders[order_iteration][3] = user_order;
             hot_or_iced = ask_hot_or_iced();
             hotcold_orders[order_iteration] = hot_or_iced;
+
+            drink_size = select_size();
+            all_orders[order_iteration][1] = drink_size;
+        //sets row n, column 1 to drink size
+
+            order_quantity = ask_for_quantity();
+            all_orders[order_iteration][2] = order_quantity;
+        //sets row n, column 2 to order quantity
         }
         else if (menu_choice == 2) { // Frappuccino
             menu_frapuccino();
             scanf("%i",&user_order);
-            add_on_choice = ask_for_addons();
             all_orders[order_iteration][3] = user_order;
+
+            drink_size = select_size();
+            all_orders[order_iteration][1] = drink_size;
+            //sets row n, column 1 to drink size
+
+            order_quantity = ask_for_quantity();
+             all_orders[order_iteration][2] = order_quantity;
+            //sets row n, column 2 to order quantity
+
+            add_on_choice = ask_for_addons();
+            
             if (add_on_choice == 1)
             {
                 order_iteration++;
@@ -285,14 +303,14 @@ int main(void) {
             menu_teavanatea();
             scanf("%i",&user_order);
             all_orders[order_iteration][3] = user_order;
-        }
-        drink_size = select_size();
-        all_orders[order_iteration][1] = drink_size;
-        //sets row n, column 1 to drink size
+            drink_size = select_size();
+            all_orders[order_iteration][1] = drink_size;
+            //sets row n, column 1 to drink size
 
-        order_quantity = ask_for_quantity();
-        all_orders[order_iteration][2] = order_quantity;
-        //sets row n, column 2 to order quantity
+            order_quantity = ask_for_quantity();
+            all_orders[order_iteration][2] = order_quantity;
+            //sets row n, column 2 to order quantity
+        }
         
         
 
